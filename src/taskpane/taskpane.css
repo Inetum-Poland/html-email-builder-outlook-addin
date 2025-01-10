@@ -1,80 +1,159 @@
-/* 
- * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
- * See LICENSE in the project root for license information.
- */
+:root {
+  --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+    "Helvetica Neue", sans-serif;
+  --font-monospace: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono", monospace;
 
- html,
- body {
-     width: 100%;
-     height: 100%;
-     margin: 0;
-     padding: 0;
- }
- 
- ul {
-     margin: 0;
-     padding: 0;
- }
- 
- .ms-welcome__header {
-    padding: 20px;
-    padding-bottom: 30px;
-    padding-top: 100px;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: column;
-    flex-direction: column;
-    align-items: center;
- }
+  --color-background: #ffffff;
+  --color-scrollbar: #7f7f7f;
+  --color-border-light: #c7c7c7;
+  --color-border-dark: #616161;
+  --color-outlook-light: #0f6cbd;
+  --color-outlook-dark: #115ea3;
+  --color-info: #8d8d8d;
+  --color-error: #b10e1c;
 
- .ms-welcome__main {
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: column;
-    flex-direction: column;
-    -webkit-flex-wrap: nowrap;
-    flex-wrap: nowrap;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-flex: 1 0 0;
-    flex: 1 0 0;
-    padding: 10px 20px;
- }
- 
- .ms-welcome__main > h2 {
-     width: 100%;
-     text-align: center;
- }
- 
- .ms-welcome__features {
-     list-style-type: none;
-     margin-top: 20px;
- }
- 
- .ms-welcome__features.ms-List .ms-ListItem {
-     padding-bottom: 20px;
-     display: -webkit-flex;
-     display: flex;
- }
- 
- .ms-welcome__features.ms-List .ms-ListItem > .ms-Icon {
-     margin-right: 10px;
- }
- 
- .ms-welcome__action.ms-Button--hero {
-     margin-top: 30px;
- }
- 
-.ms-Button.ms-Button--hero .ms-Button-label {
-  color: #0078d7;
+  --space: 8px;
+
+  --duration-short: 50ms;
+  --duration-normal: 100ms;
+  --duration-long: 200ms;
 }
 
-.ms-Button.ms-Button--hero:hover .ms-Button-label,
-.ms-Button.ms-Button--hero:focus .ms-Button-label{
-  color: #005a9e;
+* {
+  box-sizing: border-box;
+  font-family: var(--font-body);
+}
+
+*::-webkit-scrollbar {
+  height: 16px;
+  width: 16px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-scrollbar);
+  border-radius: 8px;
+  border: 5px solid var(--color-background);
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: var(--space);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: var(--space);
+}
+
+aside {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-size: small;
+  color: var(--color-info);
+  padding-bottom: 12px;
+}
+
+#info {
+  text-align: right;
+}
+
+#error {
+  color: var(--color-error);
+}
+
+.textarea-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: var(--space);
+  font-size: small;
+  color: var(--color-info);
+  position: relative;
+}
+
+textarea {
+  resize: none;
+  height: 100%;
+  font-family: var(--font-monospace);
+  font-size: 12px;
+  text-wrap: nowrap;
+  border: 1px solid var(--color-border-light);
+  outline: none;
+  border-radius: 4px;
+  border-bottom-color: var(--color-border-dark);
+  padding: 6px 10px;
+}
+
+.textarea-wrapper::after {
+  border-bottom: 2px solid var(--color-outlook-light);
+  background-color: var(--color-outlook-light);
+  border-radius: 0 0 6px 6px;
+  box-sizing: border-box;
+  clip-path: inset(calc(100% - 3px) 1px 0px);
+  content: "";
+  height: 6px;
+  inset: auto 0px 0px;
+  position: absolute;
+  transform: scaleX(0);
+  transition-delay: cubic-bezier(1, 0, 1, 1);
+  transition-duration: var(--duration-short);
+  transition-property: transform;
+}
+
+.textarea-wrapper:focus-within::after {
+  transform: scaleX(1);
+  transition-property: transform;
+  transition-duration: var(--duration-long);
+  transition-delay: cubic-bezier(0, 0, 0, 1);
+}
+
+button {
+  background-color: var(--color-outlook-light);
+  color: white;
+  border-radius: 4px;
+  padding: 5px 12px;
+  min-height: 32px;
+  font-weight: 600;
+  outline: none;
+  font-size: 14px;
+  border: none;
   cursor: pointer;
-}
+  transition-duration: var(--duration-normal);
+  transition-property: background, border, color;
+  transition-timing-function: cubic-bezier(0.33, 0, 0.67, 1);
+  border: 1px solid var(--color-outlook-light);
+  -webkit-user-select: none;
+  user-select: none;
 
-b {
-    font-weight: bold;
+  &[disabled] {
+    background-color: #f0f0f0 !important;
+    color: #bdbdbd;
+    border-color: #e0e0e0;
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    background-color: var(--color-outlook-dark);
+    transition-duration: var(--duration-normal);
+    transition-property: background;
+    transition-timing-function: cubic-bezier(0.33, 0, 0.67, 1);
+
+    &:focus-visible {
+      outline: 2px solid var(--color-outlook-dark);
+      outline-offset: 2px;
+    }
+  }
+
+  &:focus-visible {
+    outline: 1px solid var(--color-outlook-light);
+    outline-offset: 2px;
+  }
 }

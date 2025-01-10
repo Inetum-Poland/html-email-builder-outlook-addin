@@ -8,22 +8,21 @@
   "license": "MIT",
   "config": {
     "app_to_debug": "outlook",
-    "app_type_to_debug": "desktop",
-    "dev_server_port": 3000
+    "app_type_to_debug": "desktop"
   },
   "scripts": {
     "build": "webpack --mode production",
-    "build:dev": "webpack --mode development",
     "dev-server": "webpack serve --mode development",
     "lint": "office-addin-lint check",
     "lint:fix": "office-addin-lint fix",
     "prettier": "office-addin-lint prettier",
     "signin": "office-addin-dev-settings m365-account login",
     "signout": "office-addin-dev-settings m365-account logout",
-    "start": "office-addin-debugging start manifest.xml",
-    "stop": "office-addin-debugging stop manifest.xml",
-    "validate": "office-addin-manifest validate manifest.xml",
-    "watch": "webpack --mode development --watch"
+    "start": "office-addin-debugging start dist/manifest.xml",
+    "stop": "office-addin-debugging stop dist/manifest.xml",
+    "validate": "office-addin-manifest validate dist/manifest.xml",
+    "watch": "webpack --watch --mode development",
+    "test": "vitest"
   },
   "dependencies": {
     "core-js": "^3.36.0",
@@ -51,6 +50,7 @@
     "process": "^0.11.10",
     "source-map-loader": "^5.0.0",
     "typescript": "^5.4.2",
+    "vitest": "^2.1.8",
     "webpack": "^5.95.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "5.1.0"

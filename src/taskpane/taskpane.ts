@@ -1,28 +1,97 @@
-/*
- * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
- * See LICENSE in the project root for license information.
- */
+/* global Office */
 
-/* global document, Office */
+import { countBytes, formatBytes } from "./utils";
+
+const SIZE_LIMIT = 1_000_000;
 
 Office.onReady((info) => {
-  if (info.host === Office.HostType.Outlook) {
-    document.getElementById("sideload-msg").style.display = "none";
-    document.getElementById("app-body").style.display = "flex";
-    document.getElementById("run").onclick = run;
+  if (info.host !== Office.HostType.Outlook) {
+    return;
   }
+
+  const input = document.querySelector("#html-input") as HTMLInputElement;
+  const button = document.querySelector("#insert") as HTMLButtonElement;
+
+  input.oninput = onInput;
+  button.onclick = onClick;
 });
 
-export async function run() {
-  /**
-   * Insert your Outlook code here
-   */
+const onInput = () => {
+  const html = document.querySelector("#html-input") as HTMLInputElement;
+  const value = html.value;
+  const bytes = countBytes(value);
 
-  const item = Office.context.mailbox.item;
-  let insertAt = document.getElementById("item-subject");
-  let label = document.createElement("b").appendChild(document.createTextNode("Subject: "));
-  insertAt.appendChild(label);
-  insertAt.appendChild(document.createElement("br"));
-  insertAt.appendChild(document.createTextNode(item.subject));
-  insertAt.appendChild(document.createElement("br"));
-}
+  handleInfo(bytes);
+  handleButton(value, bytes);
+};
+
+const onClick = () => {
+  const html = document.querySelector("#html-input") as HTMLInputElement;
+  const value = html.value;
+
+  insert(value);
+};
+
+const handleButton = (html: string, bytes: number) => {
+  const input = document.querySelector("#insert") as HTMLButtonElement;
+  const isEmpty = !html.trim();
+  const isTooLong = bytes > SIZE_LIMIT;
+
+  input.disabled = isEmpty || isTooLong;
+};
+
+const handleError = ({ message, info }: { message?: string; info?: string }) => {
+  const element = document.querySelector("#error") as HTMLElement;
+
+  element.innerText = message ?? "Invalid input";
+
+  if (info) {
+    element.title = info;
+  }
+};
+
+const clearError = () => {
+  const element = document.querySelector("#error") as HTMLElement;
+
+  element.title = "";
+  element.innerText = "";
+};
+
+const handleInfo = (bytes: number) => {
+  const info = document.querySelector("#info") as HTMLElement;
+
+  info.title = `${bytes} ${bytes === 1 ? "byte" : "bytes"}`;
+  info.innerText = formatBytes(bytes);
+
+  if (bytes > SIZE_LIMIT) {
+    handleError({ message: "Exceeds size limit (1 MB)." });
+    return;
+  }
+
+  clearError();
+};
+
+const insert = async (body: string) => {
+  const isEmpty = !body.trim();
+
+  if (isEmpty) {
+    return;
+  }
+
+  try {
+    Office.context.mailbox.item?.body.setSelectedDataAsync(
+      body,
+      { coercionType: Office.CoercionType.Html },
+      (result) => {
+        if (result.status === Office.AsyncResultStatus.Failed) {
+          handleError({ info: result.error.message });
+          return;
+        }
+
+        clearError();
+      }
+    );
+  } catch (error: any) {
+    handleError({ info: error.message });
+  }
+};

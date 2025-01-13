@@ -11,7 +11,8 @@
     "app_type_to_debug": "desktop"
   },
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "webpack --mode development",
+    "deploy": "webpack --mode production",
     "dev-server": "webpack serve --mode development",
     "lint": "office-addin-lint check",
     "lint:fix": "office-addin-lint fix",

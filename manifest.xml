@@ -5,7 +5,7 @@
   <ProviderName>%PROVIDER_NAME%</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Insert HTML"/>
-  <Description DefaultValue="Insert HTML"/>
+  <Description DefaultValue="An Outlook add-in that lets you quickly and easily insert custom HTML into your emails."/>
   <IconUrl DefaultValue="%BASE_URL%assets/icon-64.png"/>
   <HighResolutionIconUrl DefaultValue="%BASE_URL%assets/icon-128.png"/>
   <SupportUrl DefaultValue="%SUPPORT_URL%"/>
@@ -84,7 +84,7 @@
         <bt:String id="TaskpaneButton.Title" DefaultValue="Insert HTML"/>
       </bt:ShortStrings>
       <bt:LongStrings>
-        <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Displays a list of your gists and allows you to insert their contents into the current message."/>
+        <bt:String id="TaskpaneButton.Tooltip" DefaultValue="An Outlook add-in that lets you quickly and easily insert custom HTML into your emails."/>
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>

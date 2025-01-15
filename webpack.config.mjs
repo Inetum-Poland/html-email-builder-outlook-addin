@@ -16,9 +16,7 @@ const getHttpsOptions = async () => {
 };
 
 export default async (env, options) => ({
-  devtool: "source-map",
   entry: {
-    polyfill: ["core-js/stable", "regenerator-runtime/runtime"],
     taskpane: ["./src/taskpane/taskpane.ts", "./src/taskpane/taskpane.html"],
   },
   output: {
@@ -54,7 +52,7 @@ export default async (env, options) => ({
     new HtmlWebpackPlugin({
       filename: "taskpane.html",
       template: "./src/taskpane/taskpane.html",
-      chunks: ["polyfill", "taskpane"],
+      chunks: ["taskpane"],
     }),
     new CopyWebpackPlugin({
       patterns: [
@@ -82,7 +80,7 @@ export default async (env, options) => ({
     },
     server: {
       type: "https",
-      options: env.WEBPACK_BUILD || options.https !== undefined ? options.https : await getHttpsOptions(),
+      options: env.WEBPACK_BUILD || options.https || (await getHttpsOptions()),
     },
     port: process.env.PORT,
   },

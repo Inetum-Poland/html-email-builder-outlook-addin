@@ -26,8 +26,6 @@
     "test": "vitest"
   },
   "dependencies": {
-    "core-js": "^3.36.0",
-    "regenerator-runtime": "^0.14.1"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",

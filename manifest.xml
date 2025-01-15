@@ -42,7 +42,6 @@
     <Hosts>
       <Host xsi:type="MailHost">
         <DesktopFormFactor>
-          <FunctionFile resid="Commands.Url"/>
           <ExtensionPoint xsi:type="MessageComposeCommandSurface">
             <OfficeTab id="TabDefault">
               <Group id="msgComposeCmdGroup">
@@ -75,7 +74,6 @@
         <bt:Image id="Icon.80x80" DefaultValue="%BASE_URL%assets/icon-80.png"/>
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Commands.Url" DefaultValue="%BASE_URL%commands.html"/>
         <bt:Url id="Taskpane.Url" DefaultValue="%BASE_URL%taskpane.html"/>
       </bt:Urls>
       <bt:ShortStrings>

@@ -78,19 +78,17 @@ const insert = async (body: string) => {
     return;
   }
 
-  try {
-    Office.context.mailbox.item?.body.setSelectedDataAsync(
-      body,
-      { coercionType: Office.CoercionType.Html },
-      (result) => {
-        if (result.status === Office.AsyncResultStatus.Failed) {
-          handleError({ info: result.error.message });
-          return;
-        }
+  const coercionType = Office.CoercionType.Html;
 
-        clearError();
+  try {
+    Office.context.mailbox.item?.body.setSelectedDataAsync(body, { coercionType }, (result) => {
+      if (result.status === Office.AsyncResultStatus.Failed) {
+        handleError({ info: result.error.message });
+        return;
       }
-    );
+
+      clearError();
+    });
   } catch (error: any) {
     handleError({ info: error.message });
   }

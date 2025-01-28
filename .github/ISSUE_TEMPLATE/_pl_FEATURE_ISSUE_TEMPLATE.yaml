@@ -1,0 +1,83 @@
+---
+# https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-githubs-form-schema
+
+name: Zawnioskuj o nową funkcjonalność
+description: Uzupełnij wniosek o nową funkcjonalność, abyśmy lepiej zrozumieli, jak ją wdrożyć.
+title: "feat(<scope>): <title>"
+labels: ["feature"]
+# TODO: Add your team's assignees
+# assignees:
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Dziękujemy za zgłoszenie propozycji nowej funkcji!
+        Prosimy o wypełnienie poniższych informacji dotyczących proponowanej funkcji.
+        Upewnij się również, że **scope** i **title** w nagłówku są prawidłowe.
+
+  # Context
+  - type: textarea
+    id: context-feature
+    attributes:
+      label: Context
+      description: Przedstaw ogólne założenia dla nowej funkcjonalności.
+      placeholder: Przedstaw kontekst, cel lub jakiekolwiek inne informacje związane z tą funkcjonalnością, które pomogą nam lepiej zrozumieć tą funkcjonalność.
+    validations:
+      required: true
+
+  # Why
+  - type: textarea
+    id: why-feature
+    attributes:
+      label: Wyjaśnij dlaczego ta funkcjonalność jest potrzebna?
+      description: Wyjaśnij problem i dlaczego powinna być to nowa funkcjonalność.
+      placeholder: Potrzebuję być w stanie zrobić X, ponieważ Y
+    validations:
+      required: true
+
+  # What
+  - type: textarea
+    id: what-feature
+    attributes:
+      label: Co ta funkcjonalność będzie robić?
+      description:  Wyjaśnij, co ta funkcjonalność będzie robić.
+      placeholder: Np. nadzorowanie, wysyłanie wiadomości, profile tekstu.
+    validations:
+      required: true
+
+  # Who
+  - type: textarea
+    id: who-feature
+    attributes:
+      label: Kto skorzysta z tej funkcjonalności?
+      description: Wyjaśnij, kto skorzysta z tej funkcjonalności.
+      placeholder: Np. Wszyscy nadzorcy, Sally, Poziom 1 CCs.
+    validations:
+      required: true
+
+  # When
+  - type: textarea
+    id: when-feature
+    attributes:
+      label: Kiedy ta funkcjonalność będzie używana?
+      description: Wyjaśnij, kiedy ta funkcjonalność będzie używana.
+      placeholder: Np. Po zakończeniu konwersacji, co dzień o godzinie 3, kiedy zapiszę plik.
+    validations:
+      required: true
+
+  # Where
+  - type: textarea
+    id: where-feature
+    attributes:
+      label: Gdzie ta funkcjonalność będzie używana?
+      description: Wyjaśnij, gdzie ta funkcjonalność będzie używana.
+      placeholder: Np. W chatcie nadzorcy, na stronie profilu konwersacji, na ekranie uwierzytelniania dwuskładnikowego.
+    validations:
+      required: true
+
+  # Other Comments
+  - type: textarea
+    id: other-comments
+    attributes:
+      label: Inne komentarze / logi
+      description: Wyjaśnij dodatkowe rzeczy, które uważasz że są istotne.

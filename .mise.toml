@@ -1,0 +1,6 @@
+[tools]
+pre-commit      = 'latest'
+python          = '3.12'
+
+[settings]
+not_found_auto_install            = true
